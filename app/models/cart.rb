@@ -62,7 +62,7 @@ class Cart
     if available_discount?(item_id)
       subtotal_of(item_id) * (1 - (maximum_discount(item_id) / 100.0))
     else
-      0
+      subtotal_of(item_id)
     end
   end
 

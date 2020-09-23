@@ -7,6 +7,7 @@ RSpec.describe Cart do
       @brian = Merchant.create!(name: 'Brians Bagels', address: '125 Main St', city: 'Denver', state: 'CO', zip: 80218)
       @ogre = @megan.items.create!(name: 'Ogre', description: "I'm an Ogre!", price: 20, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 5 )
       @giant = @megan.items.create!(name: 'Giant', description: "I'm a Giant!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 2 )
+      @simba = @megan.items.create!(name: 'Simba', description: "I'm Simba!", price: 30, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 10 )
       @hippo = @brian.items.create!(name: 'Hippo', description: "I'm a Hippo!", price: 50, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaLM_vbg2Rh-mZ-B4t-RSU9AmSfEEq_SN9xPP_qrA2I6Ftq_D9Qw', active: true, inventory: 3 )
       @cart = Cart.new({
         @ogre.id.to_s => 1,
@@ -70,14 +71,13 @@ RSpec.describe Cart do
     end
 
     it ".maximum_discount()" do
-      @cart.add_item(@ogre.id.to_s)
-      @cart.add_item(@ogre.id.to_s)
-      @cart.add_item(@ogre.id.to_s)
-      @cart.add_item(@hippo.id.to_s)
+      @cart.add_item(@simba.id.to_s)
+      @cart.add_item(@simba.id.to_s)
+      @cart.add_item(@simba.id.to_s)
+      @cart.add_item(@simba.id.to_s)
+      @cart.add_item(@simba.id.to_s)
 
-      @cart.maximum_discount(@ogre.id.to_s)
-      expect(@cart.count_of(@ogre.id)).to eq(4)
-      expect(@cart.count_of(@hippo.id)).to eq(1)
+      expect(@cart.maximum_discount(@simba.id)).to eq(75)
     end
 
     it ".available_discount?()" do
@@ -94,7 +94,7 @@ RSpec.describe Cart do
       @cart.add_item(@ogre.id.to_s)
 
       expect(@cart.discounted_subtotal(@ogre.id)).to eq(30.0)
-      expect(@cart.discounted_subtotal(@giant.id)).to eq(0)
+      expect(@cart.discounted_subtotal(@giant.id)).to eq(100)
     end
   end
 end
