@@ -43,6 +43,9 @@ RSpec.describe Cart do
 
     it '.grand_total' do
       expect(@cart.grand_total).to eq(120)
+      @cart.add_item(@ogre.id.to_s)
+      @cart.add_item(@ogre.id.to_s)
+      expect(@cart.grand_total).to eq(130.0)
     end
 
     it '.count_of()' do
@@ -81,7 +84,6 @@ RSpec.describe Cart do
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
-      # @cart.add_item(@giant.id.to_s)
 
       expect(@cart.available_discount?(@ogre.id)).to eq(true)
       expect(@cart.available_discount?(@giant.id)).to eq(false)
@@ -90,10 +92,9 @@ RSpec.describe Cart do
     it ".discounted_subtotal()" do
       @cart.add_item(@ogre.id.to_s)
       @cart.add_item(@ogre.id.to_s)
-      @cart.add_item(@giant.id.to_s)
 
       expect(@cart.discounted_subtotal(@ogre.id)).to eq(30.0)
-      expect(@cart.subtotal_of(@giant.id)).to eq(150.0)
+      expect(@cart.discounted_subtotal(@giant.id)).to eq(0)
     end
   end
 end
