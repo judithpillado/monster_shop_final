@@ -2,14 +2,14 @@
 
 <%= form_tag "/merchant/discounts" do %>
 
-  <%= label_tag :name %>
-  <%= text_field_tag :name %>
+  <%= label_tag :name %> <br>
+  <%= text_field_tag :name %> <br>
 
-  <%= label_tag :item_amount %>
-  <%= number_field_tag :item_amount %>
+  <%= label_tag :item_amount %> <br>
+  <%= number_field_tag :item_amount %> <br>
 
-  <%= label_tag :discount_percentage %>
-  <%= number_field_tag :discount_percentage %>
+  <%= label_tag :discount_percentage %> <br>
+  <%= number_field_tag :discount_percentage %> <br>
 
   <%= submit_tag "Create Discount" %>
 <% end %>

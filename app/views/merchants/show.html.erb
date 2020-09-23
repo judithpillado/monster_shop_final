@@ -1,13 +1,5 @@
 <h1><%= @merchant.name %></h1>
 
-<section class='discounts'>
-  <h3> Today's Discounts! </h3>
-  <% @merchant.discounts.each do |discount| %>
-    <%= discount.name %>
-  <% end %>
-</section>
-
-
 <section class='address'>
   <p><%= @merchant.address %></p>
   <p><%= @merchant.city %> <%= @merchant.state %> <%= @merchant.zip %></p>
@@ -30,7 +22,16 @@
       </ul>
     <% end %>
   <% end %>
-</section>
+</section> <br>
+
+<section class='discounts'>
+  <h3> Today's Discounts! </h3>
+  <% @merchant.discounts.each do |discount| %>
+  <ul>
+    <li><%= discount.name %></li>
+  </ul>
+  <% end %>
+</section>  <br>
 
 <%= button_to 'Edit', "/merchants/#{@merchant.id}/edit", method: :get %>
 <%= button_to 'Delete', "/merchants/#{@merchant.id}", method: :delete  if @merchant.order_items.empty? %>
